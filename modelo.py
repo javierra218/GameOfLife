@@ -3,6 +3,13 @@ class ModeloJuegoDeLaVida:
         self.filas = filas
         self.columnas = columnas
         self.celdas = [[False] * columnas for _ in range(filas)]
+        # self.celdas = []
+        # for _ in range(filas):
+        #     fila = []
+        #     for _ in range(columnas):
+        #         fila.append(False)
+        #         self.celdas.append(fila)
+
     
     def actualizar_celdas(self):
         nuevas_celdas = [[False] * self.columnas for _ in range(self.filas)]
@@ -22,3 +29,9 @@ class ModeloJuegoDeLaVida:
 
     def limpiar_celdas(self):
         self.celdas = [[False] * self.columnas for _ in range(self.filas)]
+        # self.celdas = []
+        # for _ in range(self.filas):
+        #     fila = []
+        #     for _ in range(self.columnas):
+        #         fila.append(False)
+        #     self.celdas.append(fila)
