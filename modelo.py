@@ -1,5 +1,5 @@
 class ModeloJuegoDeLaVida:
-    def __init__(self, filas=50, columnas=50):
+    def __init__(self, filas=40, columnas=40):
         self.filas = filas
         self.columnas = columnas
         self.celdas = [[False] * columnas for _ in range(filas)]
