@@ -1,4 +1,7 @@
 import tkinter as tk
+import pickle
+from tkinter import filedialog
+import json
 
 
 class ControladorJuegoDeLaVida:
@@ -14,6 +17,14 @@ class ControladorJuegoDeLaVida:
         self.icono_pause = tk.PhotoImage(file="iconos/pause.png").subsample(10)
         self.icono_actual = self.icono_play  # Inicialmente mostramos el icono de play
         self.icono_limpiar = tk.PhotoImage(file="iconos/limpiar.png").subsample(10)
+        
+        
+        self.boton_guardar = tk.Button(raiz, text="Guardar", command=self.guardar_patron)
+        self.boton_guardar.pack(side=tk.LEFT)
+        self.boton_cargar = tk.Button(raiz, text="Cargar", command=self.cargar_patron)
+        self.boton_cargar.pack(side=tk.LEFT)
+        
+        
 
         # Crear botones con los iconos
         self.boton_actualizar = tk.Button(
@@ -30,14 +41,6 @@ class ControladorJuegoDeLaVida:
         self.modelo.celdas[y][x] = not self.modelo.celdas[y][x]
         self.vista.dibujar_cuadricula()
 
-    # def toggle_simulacion(self):
-    #     if not self.en_ejecucion:
-    #         self.en_ejecucion = True
-    #         self.boton_actualizar.config(text="Pausar")
-    #         self.ejecutar_simulacion()
-    #     else:
-    #         self.en_ejecucion = False
-    #         self.boton_actualizar.config(text="Iniciar")
 
     def toggle_simulacion(self):
         self.en_ejecucion = not self.en_ejecucion  # Alternamos entre pausa y ejecución
@@ -60,3 +63,28 @@ class ControladorJuegoDeLaVida:
     def limpiar_tablero(self):
         self.modelo.limpiar_celdas()
         self.vista.dibujar_cuadricula()
+        
+    
+    
+    def guardar_patron(self):
+        try:
+            nombre_archivo = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivo JSON", "*.json")])
+            if nombre_archivo:
+                with open(nombre_archivo, 'w') as archivo:
+                    json.dump(self.modelo.celdas, archivo, indent=4)
+                    print(f"Patrón guardado en {nombre_archivo}")
+        except Exception as e:
+            print(f"Error al guardar el patrón: {e}")
+
+    def cargar_patron(self):
+        try:
+            nombre_archivo = filedialog.askopenfilename(filetypes=[("Archivo JSON", "*.json")])
+            if nombre_archivo:
+                with open(nombre_archivo, 'r') as archivo:
+                    self.modelo.celdas = json.load(archivo)
+                    self.vista.dibujar_cuadricula()
+                    print(f"Patrón cargado desde {nombre_archivo}")
+        except FileNotFoundError:
+            print("El archivo especificado no existe.")
+        except Exception as e:
+            print(f"Error al cargar el patrón: {e}")

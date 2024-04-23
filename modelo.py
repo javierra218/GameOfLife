@@ -21,9 +21,9 @@ class ModeloJuegoDeLaVida:
 
     def contar_vecinos_vivos(self, fila, columna):
         conteo = 0
-        for i in range(max(0, fila - 1), min(self.filas, fila + 2)):
-            for j in range(max(0, columna - 1), min(self.columnas, columna + 2)):
-                if (i != fila or j != columna) and self.celdas[i][j]:
+        for i in range(fila - 1, fila + 2):
+            for j in range(columna - 1, columna + 2):
+                if (i != fila or j != columna) and self.celdas[i % self.filas][j % self.columnas]:
                     conteo += 1
         return conteo
 
