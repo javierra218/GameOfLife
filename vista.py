@@ -2,7 +2,7 @@ import tkinter as tk
 
 
 class VistaJuegoDeLaVida:
-    def __init__(self, maestro, modelo, tamano_celda=10):
+    def __init__(self, maestro, modelo, tamano_celda=14):
         self.modelo = modelo
         self.tamano_celda = tamano_celda
         self.canvas = tk.Canvas(maestro, width=modelo.columnas * tamano_celda, height=modelo.filas * tamano_celda, bg='white')

@@ -1,5 +1,4 @@
 import tkinter as tk
-import pickle
 from tkinter import filedialog
 import json
 
@@ -13,28 +12,36 @@ class ControladorJuegoDeLaVida:
         self.vista.canvas.bind("<Button-1>", self.modificar_celdas)
 
         # Cargar imágenes de los iconos
-        self.icono_play = tk.PhotoImage(file="iconos/play.png").subsample(10)
-        self.icono_pause = tk.PhotoImage(file="iconos/pause.png").subsample(10)
+        self.icono_play = tk.PhotoImage(file="iconos/play.png").subsample(15)
+        self.icono_pause = tk.PhotoImage(file="iconos/pause.png").subsample(15)
         self.icono_actual = self.icono_play  # Inicialmente mostramos el icono de play
-        self.icono_limpiar = tk.PhotoImage(file="iconos/limpiar.png").subsample(10)
+        self.icono_limpiar = tk.PhotoImage(file="iconos/limpiar.png").subsample(15)
+        self.icono_guardar = tk.PhotoImage(file="iconos/guardar.png").subsample(15)
+        self.icono_cargar = tk.PhotoImage(file="iconos/cargar.png").subsample(15)
         
-        
-        self.boton_guardar = tk.Button(raiz, text="Guardar", command=self.guardar_patron)
-        self.boton_guardar.pack(side=tk.LEFT)
-        self.boton_cargar = tk.Button(raiz, text="Cargar", command=self.cargar_patron)
-        self.boton_cargar.pack(side=tk.LEFT)
-        
-        
+        # Crear un frame para los botones con iconos
+        self.frame_botones = tk.Frame(self.raiz)
+        self.frame_botones.pack()
 
-        # Crear botones con los iconos
+        # Crear botones con los iconos dentro del frame
         self.boton_actualizar = tk.Button(
-            self.raiz, image=self.icono_play, command=self.toggle_simulacion
+            self.frame_botones, image=self.icono_play, command=self.toggle_simulacion
         )
         self.boton_actualizar.pack(side=tk.LEFT)
         self.boton_limpiar = tk.Button(
-            self.raiz, image=self.icono_limpiar, command=self.limpiar_tablero
+            self.frame_botones, image=self.icono_limpiar, command=self.limpiar_tablero
         )
         self.boton_limpiar.pack(side=tk.LEFT)
+        
+        # Botones de guardar y cargar
+        self.boton_guardar = tk.Button(
+            self.frame_botones, image=self.icono_guardar, command=self.guardar_patron
+        )
+        self.boton_guardar.pack(side=tk.LEFT)
+        self.boton_cargar = tk.Button(
+            self.frame_botones, image=self.icono_cargar, command=self.cargar_patron
+        )
+        self.boton_cargar.pack(side=tk.LEFT)
 
     def modificar_celdas(self, evento):
         x, y = evento.x // self.vista.tamano_celda, evento.y // self.vista.tamano_celda

@@ -9,4 +9,6 @@ modelo = ModeloJuegoDeLaVida()
 vista = VistaJuegoDeLaVida(raiz, modelo)
 controlador = ControladorJuegoDeLaVida(raiz, modelo, vista)
 vista.dibujar_cuadricula()
+# Bloquear el cambio de tamaño de la ventana
+raiz.resizable(width=False, height=False)
 raiz.mainloop()
