@@ -18,6 +18,7 @@ class ControladorJuegoDeLaVida:
         self.icono_limpiar = tk.PhotoImage(file="iconos/limpiar.png").subsample(15)
         self.icono_guardar = tk.PhotoImage(file="iconos/guardar.png").subsample(15)
         self.icono_cargar = tk.PhotoImage(file="iconos/cargar.png").subsample(15)
+        self.icono_paso_a_paso = tk.PhotoImage(file="iconos/paso_a_paso.png").subsample(15)  # Asumiendo que tienes un icono de paso a paso
         
         # Crear un frame para los botones con iconos
         self.frame_botones = tk.Frame(self.raiz)
@@ -28,10 +29,17 @@ class ControladorJuegoDeLaVida:
             self.frame_botones, image=self.icono_play, command=self.toggle_simulacion
         )
         self.boton_actualizar.pack(side=tk.LEFT)
+        
         self.boton_limpiar = tk.Button(
             self.frame_botones, image=self.icono_limpiar, command=self.limpiar_tablero
         )
         self.boton_limpiar.pack(side=tk.LEFT)
+
+        # Botón de paso a paso
+        self.boton_paso_a_paso = tk.Button(
+            self.frame_botones, image=self.icono_paso_a_paso, command=self.actualizar_paso_a_paso
+        )
+        self.boton_paso_a_paso.pack(side=tk.LEFT)
         
         # Botones de guardar y cargar
         self.boton_guardar = tk.Button(
@@ -95,3 +103,10 @@ class ControladorJuegoDeLaVida:
             print("El archivo especificado no existe.")
         except Exception as e:
             print(f"Error al cargar el patrón: {e}")
+            
+    # Método nuevo para la actualización paso a paso
+    def actualizar_paso_a_paso(self):
+        if not self.en_ejecucion:
+            self.modelo.actualizar_celdas()
+            self.vista.dibujar_cuadricula()
+
